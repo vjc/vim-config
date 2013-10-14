@@ -1,1 +1,1 @@
-My vim config file, along with vundle
+My vim config file
