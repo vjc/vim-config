@@ -7,41 +7,32 @@
 
     " Setup Bundle Support {
     " The next two lines ensure that the ~/.vim/bundle/ system works
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
+        set rtp+=~/.vim/bundle/Vundle.vim
+        call vundle#begin()
     " }
 " }
 
 " Bundles {
     " Deps
-        Bundle 'gmarik/vundle'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        Bundle 'tomtom/tlib_vim'
-        Bundle 'mileszs/ack.vim'
-
-    " Use local bundles if available {
-        if filereadable(expand("~/.vimrc.bundles.local"))
-            source ~/.vimrc.bundles.local
-        endif
-    " }
+        Plugin 'VundleVim/Vundle.vim'
+        Plugin 'MarcWeber/vim-addon-mw-utils'
+        Plugin 'tomtom/tlib_vim'
+        Plugin 'mileszs/ack.vim'
 
     " General
-        Bundle 'altercation/vim-colors-solarized'
-        ""Bundle 'AutoClose'
-        Bundle 'kien/ctrlp.vim'
-        Bundle 'vim-scripts/bufkill.vim'
-        ""Bundle 'matchit.zip'
+        Plugin 'altercation/vim-colors-solarized'
+        Plugin 'kien/ctrlp.vim'
+        Plugin 'vim-scripts/bufkill.vim'
 
     " General Programming
-        Bundle 'scrooloose/syntastic'
-        Bundle 'tpope/vim-fugitive'
-        Bundle 'godlygeek/tabular'
-        Bundle 'majutsushi/tagbar'
-        ""Bundle 'Shougo/neocomplcache'
-        Bundle 'vim-scripts/vcscommand.vim'
+        Plugin 'scrooloose/syntastic'
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'godlygeek/tabular'
+        Plugin 'majutsushi/tagbar'
+        Plugin 'vim-scripts/vcscommand.vim'
 
     " PHP
-        Bundle 'spf13/PIV'
+        Plugin 'spf13/PIV'
 
     " Python
         " Pick either python-mode or pyflakes & pydoc
@@ -51,18 +42,16 @@
         ""Bundle 'pythoncomplete'
 
     " Javascript
-        Bundle 'leshill/vim-json'
-        Bundle 'groenewege/vim-less'
-        Bundle 'taxilian/vim-web-indent'
-        Bundle 'kchmck/vim-coffee-script'
+        Plugin 'leshill/vim-json'
+        Plugin 'groenewege/vim-less'
+        Plugin 'taxilian/vim-web-indent'
+        Plugin 'leafgarland/typescript-vim'
 
     " HTML
-        Bundle 'HTML-AutoCloseTag'
-        Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-
-    " Clojure
-        Bundle 'vim-scripts/VimClojure'
+        Plugin 'HTML-AutoCloseTag'
+        Plugin 'ChrisYip/Better-CSS-Syntax-for-Vim'
 " }
+call vundle#end()
 
 " General {
     filetype plugin indent on   " Automatically detect file types.
@@ -155,7 +144,8 @@
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,coffee,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+    autocmd FileType c,coffee,cpp,java,php,javascript,python,typescript,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+    autocmd FileType javascript,typescript,yaml setlocal expandtab sw=2 ts=2 sts=2
 " }
 
 " Key (re)Mappings {
@@ -216,11 +206,6 @@
     " Toggle folds with space
     nnoremap <space> za
 
-    " Prefer the CommandT style
-
-    nnoremap <C-t> :CtrlP ~/projects/flyerboard<CR>
-    nnoremap <C-y> :CtrlP ~/projects/placelocal<CR>
-
     " Global Search
     nnoremap <C-f> :Ack
 
@@ -251,7 +236,7 @@
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
     let g:pdv_cfg_Package="Flyerboard"
     let g:pdv_cfg_Author="Victor Cheng"
-    let g:pdv_cfg_Copyright="(c) 2012 PaperG, Inc."
+    let g:pdv_cfg_Copyright="(c) 2017 PaperG, Inc."
     let g:pdv_cfg_Version=""
 " }
 
@@ -348,11 +333,12 @@
      " }
 
      " ctrlp {
-        let g:ctrlp_working_path_mode = 2
-        nnoremap <silent> <D-t> :CtrlP<CR>
-        nnoremap <silent> <D-r> :CtrlPMRU<CR>
+        let g:ctrlp_working_path_mode = 'r'
+        let g:ctrlp_root_markers = ['.gitignore']
+        nnoremap <silent> <c-p> :CtrlP<CR>
+        nnoremap <silent> <c-o> :CtrlPMRU<CR>
         let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|node_modules',
             \ 'file': '\.exe$\|\.so$\|\.dll$' }
      "}
 
@@ -368,6 +354,11 @@
         nnoremap <silent> <leader>gl :Glog<CR>
         nnoremap <silent> <leader>gp :Git push<CR>
      "}
+
+     " Syntastic {
+        let g:syntastic_javascript_checkers = ['eslint']
+        let g:syntastic_typescript_checkers = ['tslint']
+     " }
 " }
 
  " Functions {
