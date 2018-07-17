@@ -46,6 +46,7 @@
         Plugin 'groenewege/vim-less'
         Plugin 'taxilian/vim-web-indent'
         Plugin 'leafgarland/typescript-vim'
+        Plugin 'Quramy/tsuquyomi'
 
     " HTML
         Plugin 'HTML-AutoCloseTag'
@@ -59,6 +60,8 @@ call vundle#end()
     set mouse=a                 " automatically enable mouse usage
     scriptencoding utf-8
     autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
     " always switch to the current file directory.
     set wildignore+=*/vendor/*
 
@@ -357,7 +360,8 @@ call vundle#end()
 
      " Syntastic {
         let g:syntastic_javascript_checkers = ['eslint']
-        let g:syntastic_typescript_checkers = ['tslint']
+        let g:tsuquyomi_disable_quickfix = 1
+        let g:syntastic_typescript_checkers = ['tsuquyomi']
      " }
 " }
 
