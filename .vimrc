@@ -341,7 +341,7 @@ call vundle#end()
         nnoremap <silent> <c-p> :CtrlP<CR>
         nnoremap <silent> <c-o> :CtrlPMRU<CR>
         let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|node_modules',
+            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|node_modules$\|build$',
             \ 'file': '\.exe$\|\.so$\|\.dll$' }
      "}
 
