@@ -60,8 +60,6 @@ call vundle#end()
     set mouse=a                 " automatically enable mouse usage
     scriptencoding utf-8
     autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-    autocmd QuickFixCmdPost [^l]* nested cwindow
-    autocmd QuickFixCmdPost    l* nested lwindow
     " always switch to the current file directory.
     set wildignore+=*/vendor/*
 
@@ -341,7 +339,7 @@ call vundle#end()
         nnoremap <silent> <c-p> :CtrlP<CR>
         nnoremap <silent> <c-o> :CtrlPMRU<CR>
         let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|node_modules',
+            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|node_modules$\|build$',
             \ 'file': '\.exe$\|\.so$\|\.dll$' }
      "}
 
