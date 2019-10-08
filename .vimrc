@@ -110,6 +110,11 @@ call vundle#end()
         set statusline+=%{fugitive#statusline()} "  Git Hotness
         set statusline+=\ [%{&ff}/%Y]            " filetype
         set statusline+=\ [%{getcwd()}]          " current dir
+        " Syntastic
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+        " Syntastic 
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
     endif
 
@@ -360,6 +365,10 @@ call vundle#end()
         let g:syntastic_javascript_checkers = ['eslint']
         let g:tsuquyomi_disable_quickfix = 1
         let g:syntastic_typescript_checkers = ['tsuquyomi']
+        let g:syntastic_always_populate_loc_list = 1
+        let g:syntastic_auto_loc_list = 1
+        let g:syntastic_check_on_open = 1
+        let g:syntastic_check_on_wq = 1
      " }
 " }
 
